@@ -1,0 +1,66 @@
+<form class="search" [formGroup]="searchForm">
+  <div class="search__field">
+    <label class="search__label" for="title">Title</label>
+    <input
+      id="title"
+      class="search__input"
+      placeholder="Search by title"
+      formControlName="title"
+    />
+  </div>
+  <div class="search__field">
+    <label class="search__label" for="year">Year</label>
+    <input
+      id="year"
+      class="search__input"
+      placeholder="Search by year"
+      formControlName="year"
+    />
+  </div>
+  <div class="search__field">
+    <label class="search__label" for="type">Type</label>
+    <select class="search__select" name="type" id="type" formControlName="type">
+      <option value="movie">Movie</option>
+      <option value="series">Series</option>
+      <option value="episode">Episode</option>
+    </select>
+  </div>
+</form>
+<div class="search-list">
+  <ng-container *ngIf="searchResponse$ | async as searchResponse; else loading">
+    <div
+      *ngFor="let movie of searchResponse.Search"
+      class="movie"
+      (click)="handleMovieSelection(movie)"
+    >
+      <img class="movie__poster" [src]="movie.Poster" alt="movie.Title" />
+      <p class="movie__title">{{ movie.Title }}</p>
+    </div>
+    <div *ngIf="searchResponse?.Search?.length" class="search-pagination">
+      <p class="search-pagination__details">
+        {{ (pagination.value - 1) * 10 }} -
+        {{ (pagination.value - 1) * 10 + 10 }} /
+        {{ searchResponse.totalResults }}
+      </p>
+      <button
+        class="search-pagination__button"
+        [disabled]="pagination.value <= 1"
+        (click)="handleBackward()"
+      >
+        <
+      </button>
+      <button
+        class="search-pagination__button"
+        [disabled]="
+          (pagination.value - 1) * 10 + 10 >= +searchResponse.totalResults
+        "
+        (click)="handleForward()"
+      >
+        >
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <p class="search-loading">Type your query and check results</p>
+  </ng-template>
+</div>

@@ -1,0 +1,45 @@
+<div *ngIf="movieDetails$ | async as movie" class="details">
+  <div class="details-header">
+    <button class="details-header__back" (click)="handleBack()"><</button>
+    <p class="details-header__title">{{ movie.Title }}</p>
+  </div>
+  <div class="details-preview">
+    <img class="details-preview__poster" [src]="movie.Poster" alt="movie.Title" />
+  </div>
+  <div class="details-content">
+    <p class="details__data">Year: {{ movie.Year }}</p>
+    <p class="details__data">Rated: {{ movie.Rated }}</p>
+    <p class="details__data">Released: {{ movie.Released }}</p>
+    <p class="details__data">Runtime: {{ movie.Runtime }}</p>
+    <p class="details__data">Genre: {{ movie.Genre }}</p>
+    <p class="details__data">Director: {{ movie.Director }}</p>
+    <p class="details__data">Writer: {{ movie.Writer }}</p>
+    <p class="details__data">Actors: {{ movie.Actors }}</p>
+    <p class="details__data">Language: {{ movie.Language }}</p>
+    <p class="details__data">Country: {{ movie.Country }}</p>
+    <p class="details__data">Awards: {{ movie.Awards }}</p>
+    <p class="details__data">Metascore: {{ movie.Metascore }}</p>
+    <p class="details__data">imdbRating: {{ movie.imdbRating }}</p>
+    <p class="details__data">imdbVotes: {{ movie.imdbVotes }}</p>
+    <p class="details__data">imdbID: {{ movie.imdbID }}</p>
+    <p class="details__data">DVD: {{ movie.DVD }}</p>
+    <p class="details__data">BoxOffice: {{ movie.BoxOffice }}</p>
+    <p class="details__data">Production: {{ movie.Production }}</p>
+    <p class="details__data">Website: {{ movie.Website }}</p>
+    <p class="details__data">Response: {{ movie.Response }}</p>
+  </div>
+  <div class="details-latest">
+    <div
+      *ngFor="let latestMovie of latestDisplayed$ | async"
+      class="details-latest-movie"
+      (click)="handleLastestDisplayedSelection(latestMovie)"
+    >
+      <img
+        class="details-latest-movie__poster"
+        [src]="latestMovie.Poster"
+        alt="latestMovie.Title"
+      />
+      <p class="details-latest-movie__title">Title: {{ latestMovie.Title }}</p>
+    </div>
+  </div>
+</div>
